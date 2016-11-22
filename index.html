@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
@@ -6,36 +5,36 @@
 /* CSS goes here. */
 #boroughs {
   stroke: grey;
-	stroke-width: 1px;
-	fill: steelblue;
+  stroke-width: 1px;
+  fill: steelblue;
 }
 
 </style>
 <body>
-<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script></script>
-<script src="//d3js.org/topojson.v1.min.js"></script>
-<script>
+  <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script></script>
+  <script src="//d3js.org/topojson.v1.min.js"></script>
+  <script>
 
-var width = 350,
-    height = 280;
+  var width = 350,
+  height = 280;
 
-var projection = d3.geo.mercator()
-  					.center([-73.94, 40.70])
-  					.scale(24000)
-  					.translate([(width) / 2, (height)/2]);
+  var projection = d3.geo.mercator()
+  .center([-73.94, 40.70])
+  .scale(24000)
+  .translate([(width) / 2, (height)/2]);
 
-var path = d3.geo.path()
-    .projection(projection);
+  var path = d3.geo.path()
+  .projection(projection);
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+  var svg = d3.select("body").append("svg")
+  .attr("width", width)
+  .attr("height", height);
 
-d3.json("ny.json", function(error, ny) {
-  svg.append("path")
-      .attr("id", "boroughs")
-      .datum(topojson.feature(ny, ny.objects.boroughs))
-      .attr("d", path);
-});
+  d3.json("ny.json", function(error, ny) {
+    svg.append("path")
+    .attr("id", "boroughs")
+    .datum(topojson.feature(ny, ny.objects.boroughs))
+    .attr("d", path);
+  });
 
-</script>
+  </script>
