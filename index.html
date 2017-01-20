@@ -63,14 +63,17 @@
 //     alert("Data: " + data + "\nStatus: " + status);
 // });
 
-$.ajax({
+var data = $.ajax({
    type: 'GET',
-   url:'https://feeds.citibikenyc.com/stations/stations.json',
-   dataType: 'JSONP',
+   accept: '*/*',
+   url:'https://member.citibikenyc.com/data/stations.json',
+   dataType: 'JSON',
    crossDomain: true,
-   success:function(){alert("Success")},
-   error:function(){alert("Error")}
+   success:function(){console.log(data)},
+   error:function(){alert("Error:")}
 });
+
+
 //create array of points in LONG, LAT (reverse of lat, long)
 
 //create a for each loop to assign all the ponits to a dot :
@@ -86,3 +89,5 @@ svg.selectAll("circle")
   });
 
   </script>
+</body>
+</html>
