@@ -69,11 +69,20 @@ var data = $.ajax({
    url:'https://member.citibikenyc.com/data/stations.json',
    dataType: 'JSON',
    crossDomain: true,
-   success:function(){console.log(data)},
+   success:function(){ parseStationJson(data)},
    error:function(){alert("Error:")}
 });
 
+function parseStationJson (data){
+  $.each(JSON.parse(data.responseText), function() {
+    $.each(this, function(){
+      //inside stations
+      console.log(this);
+      // console.log(k + ":" + v);
+    })
 
+  })
+}
 //create array of points in LONG, LAT (reverse of lat, long)
 
 //create a for each loop to assign all the ponits to a dot :
