@@ -54,14 +54,19 @@
     .datum(topojson.feature(ny, ny.objects.boroughs))
     .attr("d", path);
 
-    // points
-    aa = [-73.99392888, 40.76727216];
-	bb = [-74.00666661 , 40.71911552];
+
 
 //call ajax request
 // $.get("https://feeds.citibikenyc.com/stations/stations.json", function(data, status){
 //     alert("Data: " + data + "\nStatus: " + status);
 // });
+
+
+var zoom = d3.behavior.zoom()
+    .translate(projection.translate())
+    .scale(projection.scale())
+    .scaleExtent([height, 8 * height])
+    .on("zoom", zoomed);
 
 var data = $.ajax({
    type: 'GET',
@@ -75,12 +80,19 @@ var data = $.ajax({
 
 var stationsArray = [];
 
+function zoomed() {
+  projection.translate(d3.event.translate).scale(d3.event.scale);
+  g.selectAll("path").attr("d", path);
+}
+
 function parseStationJson (data){
   $.each(JSON.parse(data.responseText), function() {
     $.each(this, function(){
       //inside stations
-      var stationObject = {id:this.id, station:this.s, coordInfo:[this.lo, this.la, this.id], blocked:this.b, availBikes:this.ba, availDocks:this.da};
-      stationsArray.push(stationObject);
+      if(this.d != "JC District"){
+        var stationObject = {id:this.id, station:this.s, coordInfo:[this.lo, this.la, this.id], blocked:this.b, availBikes:this.ba, availDocks:this.da};
+        stationsArray.push(stationObject);
+      }
     })
 
   })
@@ -107,6 +119,7 @@ function plotStations (stationsArray){
     .append("circle")
     .attr("cx", function (d) {  return projection(d) [0];})
     .attr("cy", function (d) { return projection(d) [1];})
+    .attr("id", function (d) { return d[2];})
     .attr("r", "2px")
     .attr("fill", "red")
 }
