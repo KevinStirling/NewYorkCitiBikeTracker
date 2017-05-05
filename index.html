@@ -4,16 +4,6 @@
 
 /* CSS goes here. */
 
-.flex-container (
-  display:flex;
-  )
-
-.flex-item {
-  padding:5px;
-  width:500;
-  height:500;
-}
-
 #boroughs {
   stroke: grey;
   stroke-width: 1px;
@@ -26,10 +16,10 @@
   <script src="//d3js.org/topojson.v1.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-  <div class="flex-container">
-      <div id ="map" class="flex-item">
+
+      <div id = "map" style = "float : left; min-width:320px;width :50%;height : 600px">
       </div>
-  </div>
+
 
   <script>
 
@@ -45,21 +35,15 @@
   .projection(projection);
 
   var svg = d3.select("#map").append("svg")
-  .attr("width", width)
-  .attr("height", height);
+  .attr("viewBox", "0 0 900 800")
+  .attr("preserveAspectRatio", "xMidYMid meet");
+
 
   d3.json("ny.json", function(error, ny) {
     svg.append("path")
     .attr("id", "boroughs")
     .datum(topojson.feature(ny, ny.objects.boroughs))
     .attr("d", path);
-
-
-
-//call ajax request
-// $.get("https://feeds.citibikenyc.com/stations/stations.json", function(data, status){
-//     alert("Data: " + data + "\nStatus: " + status);
-// });
 
 
 var zoom = d3.behavior.zoom()
@@ -80,10 +64,7 @@ var data = $.ajax({
 
 var stationsArray = [];
 
-function zoomed() {
-  projection.translate(d3.event.translate).scale(d3.event.scale);
-  g.selectAll("path").attr("d", path);
-}
+
 
 function parseStationJson (data){
   $.each(JSON.parse(data.responseText), function() {
@@ -97,10 +78,6 @@ function parseStationJson (data){
 
   })
   createCoordinateArray(stationsArray);
-  // plotStations(stationsArray);
-  // console.log(stationsArray);
-
-
 }
 
 var coordinateArray = [];
