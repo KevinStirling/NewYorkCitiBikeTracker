@@ -5,9 +5,13 @@
 /* CSS goes here. */
 
 #boroughs {
-  stroke: grey;
+  stroke: #2980b9;
   stroke-width: 1px;
-  fill: white;
+  fill: #2c3e50;
+}
+
+svg{
+  background-color: #A5D6A7;
 }
 
 
@@ -18,7 +22,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 
-      <div id = "map" style = "float : left; min-width:320px;width :50%;height : 600px">
+      <div id = "map" style = "float : left; min-width:320px;width :50%;height : 600px;">
       </div>
 
 
@@ -30,7 +34,7 @@
   var projection = d3.geo.mercator()
   .center([-73.94, 40.70])
   .scale(75000)
-  .translate([(width) / 2, (height)/2]);
+  .translate([(width/2), (height/2)]);
 
 
   var svg = d3.select("#map").append("svg")
@@ -40,7 +44,8 @@
   var path = d3.geo.path()
   .projection(projection);
 
-  var g = svg.append("g");
+  var g = svg.append("g")
+  .attr("transform", "translate(-793.0489643729818,-630.1796382734433)scale(3.01487286910262)");
 
 
 
