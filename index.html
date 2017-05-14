@@ -110,7 +110,7 @@ body{
 
   var g = svg.append("g");
 
-  d3.json("nycopy.json", function(error, ny) {
+  d3.json("nyc.json", function(error, ny) {
 
     var b = [ projection([ny.bbox[0],ny.bbox[3]]),projection([ny.bbox[2],ny.bbox[1]]) ];
         var s = 25 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
