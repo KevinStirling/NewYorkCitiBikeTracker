@@ -19,6 +19,13 @@ var path = d3.geoPath()
 
 var g = svg.append("g");
 
+var zoom = d3.zoom()
+    .on("zoom", function() {
+        g.attr("transform", d3.zoomTransform(this));
+        g.selectAll("path")
+            .attr("d", path.projection(projection));
+    });
+
 d3.json("../ny.json", function(error, ny) {
 
     var b = [projection([ny.bbox[0], ny.bbox[3]]), projection([ny.bbox[2], ny.bbox[1]])];
@@ -100,7 +107,6 @@ d3.json("../ny.json", function(error, ny) {
                 $('#station').html("<h1>" + d.station + "</h1>");
                 $('#bikes').html("<h2>" + d.availBikes + "</h2><p>Bikes Available</p>");
                 $('#docks').html("<h2>" + d.availDocks + "</h2><p>Docks Available</p>");
-                d3.select(this).transition().duration(500).ease(d3.elasticInOut);
                 // alert(d.station);
             })
 
@@ -123,30 +129,17 @@ d3.json("../ny.json", function(error, ny) {
             .on("mouseout", function(d, i) {
                 d3.select(this).transition().duration(200).ease(d3.easeElasticOut)
                     .delay("100")
-
                     .attr("r", 3);
                 d3.select("#clipCircle" + i + " circle").transition().duration(200).ease(d3.easeCubicOut)
                     .delay("100")
-
                     .attr("r", 0);
                 d3.select("#text" + i).transition().duration(400).ease(d3.easeCubicOut)
-
-
                     .delay("100")
                     .attr("y", 7)
                     .attr("font-size", 20)
                     .attr("fill", "#FFF");;
             });
     }
-
-    // zoom and pan
-    var zoom = d3.zoom()
-        .on("zoom", function() {
-            g.attr("transform", "translate(" +
-                d3.event.translate.join(",") + ")scale(" + d3.event.scale + ")");
-            g.selectAll("path")
-                .attr("d", path.projection(projection));
-        });
 
     svg.call(zoom)
 
