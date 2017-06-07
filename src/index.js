@@ -99,40 +99,39 @@ d3.json("../ny.json", function(error, ny) {
             .on("click", function(d, i) {
                 $('#station').html("<h1>" + d.station + "</h1>");
                 $('#bikes').html("<h2>" + d.availBikes + "</h2><p>Bikes Available</p>");
-                $('#docks').html("<h2>" + d.availDocks + "</h2><p>Docks Available</p>")
+                $('#docks').html("<h2>" + d.availDocks + "</h2><p>Docks Available</p>");
+                d3.select(this).transition().duration(500).ease(d3.elasticInOut);
                 // alert(d.station);
             })
 
             .on("mouseover", function(d, i) {
                 d3.select(this).transition()
-                    .ease("elastic")
-                    .duration("500")
+                    .duration(500)
+                    .ease(d3.easeElastic)
                     .attr("r", 10);
                 d3.select("#clipCircle" + i + " circle").transition()
-                    .ease("cubic-out")
-                    .duration("200")
+                    .duration(200)
+                    .ease(d3.easeCubicOut)
                     .attr("r", 10);
                 d3.select("#text" + i).transition()
-                    .ease("cubic-out")
-                    .duration("200")
+                    .duration(200)
+                    .ease(d3.easeCubicOut)
                     .attr("y", 2)
                     .attr("font-size", 32)
                     .attr("fill", "#333");
             })
             .on("mouseout", function(d, i) {
-                d3.select(this).transition()
-                    .ease("quad")
+                d3.select(this).transition().duration(200).ease(d3.easeElasticOut)
                     .delay("100")
-                    .duration("200")
+
                     .attr("r", 3);
-                d3.select("#clipCircle" + i + " circle").transition()
-                    .ease("quad")
+                d3.select("#clipCircle" + i + " circle").transition().duration(200).ease(d3.easeCubicOut)
                     .delay("100")
-                    .duration("200")
+
                     .attr("r", 0);
-                d3.select("#text" + i).transition()
-                    .ease("cubic-out")
-                    .duration("400")
+                d3.select("#text" + i).transition().duration(400).ease(d3.easeCubicOut)
+
+
                     .delay("100")
                     .attr("y", 7)
                     .attr("font-size", 20)
