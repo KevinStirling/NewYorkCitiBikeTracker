@@ -20,8 +20,10 @@ var path = d3.geoPath()
 var g = svg.append("g");
 
 var zoom = d3.zoom()
+    
     .on("zoom", function() {
         g.attr("transform", d3.zoomTransform(this));
+        g.transition().duration(500).ease(d3.easePolyOut);
         g.selectAll("path")
             .attr("d", path.projection(projection));
     });
