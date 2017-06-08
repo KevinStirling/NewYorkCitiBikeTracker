@@ -1,5 +1,5 @@
 # New York Citi Bike Tracker
-![alt text] (NewYorkCitiBikeTracker/screencap.png)
+![alt text] (/screencap.png)
 
 A project that is in ongoing development to help me learn D3 practices with map projections.
 
