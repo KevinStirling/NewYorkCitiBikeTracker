@@ -1,40 +1,34 @@
 require('./index.css');
 require('jquery');
 require('bootstrap');
+
 var topojson = require('topojson');
-var d3 = Object.assign({}, require('d3'));
+var d3 = require('d3');
 
 var width = 900,
-    height = 800;
+    height = 800,
+    viewBox = "0 0 950 800", 
+    aspectRatio = "xMidYMid meet",
+    center = [-73.97, 40.76];
 
-var projection = d3.geoMercator()
-    .center([-73.97, 40.76]);
-
-var svg = d3.select("#map").append("svg")
-    .attr("viewBox", "0 0 950 800")
-    .attr("preserveAspectRatio", "xMidYMid meet");
-
-var path = d3.geoPath()
-    .projection(projection);
-
-var g = svg.append("g");
-
-var zoom = d3.zoom()
-    
-    .on("zoom", function() {
-        g.attr("transform", d3.zoomTransform(this));
-        g.transition().duration(500).ease(d3.easePolyOut);
-        g.selectAll("path")
-            .attr("d", path.projection(projection));
-    });
+var svg = d3.select("#map")
+    .append("svg")
+    .attr("viewBox", viewBox)
+    .attr("preserveAspectRatio", aspectRatio)
+    .call(d3.zoom().on("zoom", function() {
+        svg.attr("transform", d3.event.transform);
+    }))
+    .append("g");
 
 d3.json("../ny.json", function(error, ny) {
-
+    var projection = d3.geoMercator().center(center);
     var b = [projection([ny.bbox[0], ny.bbox[3]]), projection([ny.bbox[2], ny.bbox[1]])];
     var s = 25 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
+    var path = d3.geoPath().projection(projection);
+
     projection.scale(s);
 
-    g.append("path")
+    svg.append("path")
         .attr("id", "boroughs")
         .datum(topojson.feature(ny, ny.objects.boroughs))
         .attr("d", path);
@@ -75,9 +69,8 @@ d3.json("../ny.json", function(error, ny) {
         plotStations(stationsArray);
     }
 
-
     function plotStations(stationsArray) {
-        g.selectAll("circle")
+        svg.selectAll("circle")
             .data(stationsArray).enter()
             .append("circle")
             .attr("cx", function(d) {
@@ -104,14 +97,11 @@ d3.json("../ny.json", function(error, ny) {
             .attr("r", "3px")
             .attr("fill", "#e74c3c")
             .attr("cursor", "pointer")
-
             .on("click", function(d, i) {
                 $('#station').html("<h1>" + d.station + "</h1>");
                 $('#bikes').html("<h2>" + d.availBikes + "</h2><p>Bikes Available</p>");
                 $('#docks').html("<h2>" + d.availDocks + "</h2><p>Docks Available</p>");
-                // alert(d.station);
             })
-
             .on("mouseover", function(d, i) {
                 d3.select(this).transition()
                     .duration(500)
@@ -142,7 +132,4 @@ d3.json("../ny.json", function(error, ny) {
                     .attr("fill", "#FFF");;
             });
     }
-
-    svg.call(zoom)
-
 });
