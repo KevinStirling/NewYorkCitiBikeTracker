@@ -3,16 +3,21 @@
 <html>
     <head>
         <title>NYC CitiBike Tracker</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
     <body>
-        <div id="row">
-            <div id="map"></div>
-            <div id="info">
-                <div id="station"></div>
-                <div id="bikes"></div>
-                <div id="docks"></div>
+        <div class="container">
+            <div class="row is-flex">
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <div id="map"></div>
+                </div>
+                <div class="clearfix visible-xs-block"></div>
+                <div id="info" class="col-md-4 col-sm-4 col-xs-12">
+                    <div id="station"></div>
+                    <div id="bikes"></div>
+                    <div id="docks"></div>
+                </div>
             </div>
-
         </div>
     </body>
 </html>
