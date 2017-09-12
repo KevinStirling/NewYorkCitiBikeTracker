@@ -18,6 +18,10 @@ svg {
     background-color: #A5D6A7;
 }
 
+#info > h3 {
+    text-align: center;
+}
+
 .row.is-flex {
     display: flex;
     flex-wrap: wrap;
@@ -25,4 +29,10 @@ svg {
 .row.is-flex > [class*="col-"] {
     display: flex;
     flex-direction: column;
+}
+
+@media screen and (max-width: 745px) {
+    #info {
+        margin: 15px;
+    }
 }
