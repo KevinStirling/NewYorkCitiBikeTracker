@@ -8,12 +8,17 @@ svg {
     display: block;
 }
 
-#boroughs, #collection {
+#boroughs {
     stroke: #A5D6A7;
     stroke-width: 1px;
     fill: #2c3e50;
 }
 
+#collection {
+    stroke: #75a476;
+    stroke-width: 2px;
+    fill: #2c3e50;
+}
 
 
 #info {

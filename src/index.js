@@ -98,7 +98,7 @@ d3.json("../ny.json", function(error, ny) {
                 return d.availDocks;
             })
             .attr("r", "3px")
-            .attr("fill", "#e74c3c")
+            .attr("fill", "#A7FFEB")
             .attr("cursor", "pointer")
             .on("click", function(d, i) {
                 $('#station').html("<h1>" + d.station + "</h1>");
