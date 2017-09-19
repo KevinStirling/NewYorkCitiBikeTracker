@@ -8,11 +8,13 @@ svg {
     display: block;
 }
 
-#boroughs {
+#boroughs, #collection {
     stroke: #A5D6A7;
     stroke-width: 1px;
     fill: #2c3e50;
 }
+
+
 
 #info {
     background-color: #A5D6A7;

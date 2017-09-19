@@ -7,7 +7,7 @@ var d3 = require('d3');
 
 var width = 900,
     height = 800,
-    viewBox = "0 0 950 800", 
+    viewBox = "0 0 950 800",
     aspectRatio = "xMidYMid meet",
     center = [-73.97, 40.76];
 
@@ -31,6 +31,9 @@ d3.json("../ny.json", function(error, ny) {
     svg.append("path")
         .attr("id", "boroughs")
         .datum(topojson.feature(ny, ny.objects.boroughs))
+        .attr("d", path)
+        .attr("id", "collection")
+        .datum(topojson.feature(ny, ny.objects.collection))
         .attr("d", path);
 
     var data = $.ajax({
