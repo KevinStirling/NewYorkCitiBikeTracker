@@ -1,6 +1,7 @@
 require('./index.css');
 require('jquery');
 require('bootstrap');
+require('../ny.json');
 
 var topojson = require('topojson');
 var d3 = require('d3');
