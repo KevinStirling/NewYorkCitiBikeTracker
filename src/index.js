@@ -1,6 +1,7 @@
 require('./index.css');
 require('jquery');
 require('bootstrap');
+require('bootstrap/dist/css/bootstrap.min.css');
 const nycData = require('../ny.json');
 
 var topojson = require('topojson');
